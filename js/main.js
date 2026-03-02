@@ -122,7 +122,34 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   // =============================================
-  // 8. FORM — Prevent double submission
+  // 8. PAUSE VIDEOS WHEN SCROLLED OUT OF VIEW
+  // =============================================
+  if ('IntersectionObserver' in window) {
+    const videoObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        const el = entry.target;
+        if (!entry.isIntersecting) {
+          // Native <video>
+          if (el.tagName === 'VIDEO') {
+            el.pause();
+          }
+          // YouTube iframe — postMessage pause command
+          if (el.tagName === 'IFRAME' && el.src.includes('youtube')) {
+            el.contentWindow.postMessage(JSON.stringify({
+              event: 'command', func: 'pauseVideo', args: []
+            }), '*');
+          }
+        }
+      });
+    }, { threshold: 0.15 });
+
+    document.querySelectorAll('video, iframe[src*="youtube"]').forEach(el => {
+      videoObserver.observe(el);
+    });
+  }
+
+  // =============================================
+  // 9. FORM — Prevent double submission
   // =============================================
   const contactForm = document.getElementById('contact-form');
   if (contactForm) {
