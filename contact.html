@@ -102,7 +102,36 @@
         <span class="section-accent" aria-hidden="true"></span>
         <h2 class="section-title" id="booking-heading">Book Online</h2>
         <p class="section-sub">Select a date and time that suits you. Your appointment will be confirmed automatically.</p>
-        <div style="width:100%;min-height:700px;border-radius:var(--radius-lg);overflow:hidden;box-shadow:var(--shadow-md);border:1px solid rgba(1,187,214,0.12);" id="my-cal-inline-60min"></div>
+        <div style="position:relative;width:100%;min-height:700px;border-radius:var(--radius-lg);overflow:hidden;box-shadow:var(--shadow-md);border:1px solid rgba(1,187,214,0.12);">
+          <!-- Loading overlay -->
+          <div id="cal-loader" style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1rem;background:#f0fdff;z-index:10;border-radius:var(--radius-lg);">
+            <div style="width:52px;height:52px;border:4px solid rgba(1,187,214,0.2);border-top-color:#01bbd6;border-radius:50%;animation:calSpin 0.8s linear infinite;"></div>
+            <p style="font-family:'Poppins',sans-serif;font-size:0.9rem;color:#00aac3;font-weight:500;margin:0;">Loading booking calendar&hellip;</p>
+          </div>
+          <style>@keyframes calSpin{to{transform:rotate(360deg)}}</style>
+          <div id="my-cal-inline-60min" style="width:100%;min-height:700px;"></div>
+        </div>
+        <script>
+          // Hide loader once Cal.com iframe fires its load event
+          (function() {
+            var loader = document.getElementById('cal-loader');
+            var container = document.getElementById('my-cal-inline-60min');
+            var observer = new MutationObserver(function() {
+              var iframe = container.querySelector('iframe');
+              if (iframe) {
+                observer.disconnect();
+                iframe.addEventListener('load', function() {
+                  loader.style.transition = 'opacity 0.4s';
+                  loader.style.opacity = '0';
+                  setTimeout(function(){ loader.style.display = 'none'; }, 400);
+                });
+              }
+            });
+            observer.observe(container, { childList: true, subtree: true });
+            // Fallback: hide after 8s in case event doesn't fire
+            setTimeout(function(){ if(loader){ loader.style.transition='opacity 0.4s'; loader.style.opacity='0'; setTimeout(function(){loader.style.display='none';},400); } }, 8000);
+          })();
+        </script>
         <script type="text/javascript">
           (function (C, A, L) { let p = function (a, ar) { a.q.push(ar); }; let d = C.document; C.Cal = C.Cal || function () { let cal = C.Cal; let ar = arguments; if (!cal.loaded) { cal.ns = {}; cal.q = cal.q || []; d.head.appendChild(d.createElement("script")).src = A; cal.loaded = true; } if (ar[0] === L) { const api = function () { p(api, arguments); }; const namespace = ar[1]; api.q = api.q || []; if(typeof namespace === "string"){cal.ns[namespace] = cal.ns[namespace] || api;p(cal.ns[namespace], ar);p(cal, ["initNamespace", namespace]);} else p(cal, ar); return;} p(cal, ar); }; })(window, "https://app.cal.com/embed/embed.js", "init");
           Cal("init", "60min", {origin:"https://app.cal.com"});
