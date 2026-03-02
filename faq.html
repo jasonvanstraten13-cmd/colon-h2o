@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FAQ | Colon Hydrotherapy Pretoria | Colon H2O Silver Lakes</title>
+  <meta name="description" content="Frequently asked questions about colon hydrotherapy at Colon H2O, Pretoria. Get answers about safety, what to expect, and how it helps your digestive health." />
+  <meta name="keywords" content="colon hydrotherapy FAQ Pretoria, is colon hydrotherapy safe, what is colon hydrotherapy, colon cleanse FAQs" />
+  <!-- Favicons -->
+  <link rel="icon" type="image/x-icon" href="assets/favicon/favicon.ico" />
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon/favicon-32x32.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="assets/favicon/favicon-16x16.png" />
+  <link rel="apple-touch-icon" sizes="180x180" href="assets/favicon/apple-touch-icon.png" />
+  <link rel="manifest" href="assets/favicon/site.webmanifest" />
+  <meta name="theme-color" content="#01bbd6" />
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="css/styles.css" />
+  <style>
+    /* ---- FAQ Page Specific ---- */
+    .faq-layout {
+      display: grid;
+      grid-template-columns: 280px 1fr;
+      gap: 3rem;
+      align-items: start;
+    }
+    @media (max-width: 1023px) {
+      .faq-layout { grid-template-columns: 1fr; }
+      .faq-sidebar { display: none; }
+    }
+    .faq-sidebar {
+      position: sticky;
+      top: 100px;
+      background: var(--primary);
+      color: var(--white);
+      border-radius: var(--radius-lg);
+      padding: 2rem 1.5rem;
+      box-shadow: var(--shadow-lg);
+    }
+    .faq-sidebar-badge {
+      width: 72px; height: 72px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.15);
+      display: flex; align-items: center; justify-content: center;
+      margin: 0 auto 1rem;
+    }
+    .faq-sidebar-badge i { font-size: 2rem; color: var(--white); }
+    .faq-sidebar h3 { color: var(--white); font-size: 1.1rem; text-align: center; margin-bottom: 0.5rem; }
+    .faq-sidebar p { font-size: 0.88rem; opacity: 0.9; text-align: center; margin-bottom: 1.5rem; }
+    .faq-sidebar .btn { display: block; width: 100%; text-align: center; margin-bottom: 0.75rem; }
+    .faq-sidebar .btn-white { color: var(--primary-dark); }
+    .faq-sidebar .btn-wa { background: #25D366; color: #fff; border: none; }
+    .faq-sidebar .btn-tel { background: rgba(255,255,255,0.15); color: #fff; border-color: rgba(255,255,255,0.4); }
+
+    .faq-accordion { display: flex; flex-direction: column; gap: 0.75rem; }
+    .faq-item {
+      background: var(--white);
+      border-radius: var(--radius);
+      border: 1px solid rgba(1,187,214,0.1);
+      box-shadow: var(--shadow-sm);
+      overflow: hidden;
+      transition: box-shadow var(--transition);
+    }
+    .faq-item.open { box-shadow: var(--shadow-md); border-color: rgba(1,187,214,0.25); }
+    .faq-top-bar {
+      height: 3px;
+      background: linear-gradient(90deg, var(--primary-dark), var(--primary));
+      opacity: 0;
+      transition: opacity var(--transition);
+    }
+    .faq-item.open .faq-top-bar { opacity: 1; }
+    .faq-question {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      padding: 1.1rem 1.25rem;
+      cursor: pointer;
+      user-select: none;
+      background: none;
+      border: none;
+      width: 100%;
+      text-align: left;
+      font-family: 'Poppins', sans-serif;
+      font-size: 0.97rem;
+      font-weight: 600;
+      color: var(--text-dark);
+      transition: background var(--transition);
+    }
+    .faq-question:hover { background: var(--bg-section); }
+    .faq-num {
+      flex-shrink: 0;
+      width: 32px; height: 32px;
+      border-radius: 50%;
+      background: var(--primary-light);
+      color: var(--primary-dark);
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 700; font-size: 0.85rem;
+    }
+    .faq-item.open .faq-num { background: var(--primary); color: var(--white); }
+    .faq-question-text { flex: 1; }
+    .faq-chevron {
+      flex-shrink: 0;
+      color: var(--primary);
+      transition: transform 0.3s ease;
+    }
+    .faq-item.open .faq-chevron { transform: rotate(180deg); }
+    .faq-answer {
+      display: none;
+      padding: 0 1.25rem 1.25rem 4rem;
+      font-size: 0.92rem;
+      color: var(--gray-dark);
+      line-height: 1.75;
+    }
+    .faq-item.open .faq-answer { display: block; }
+  </style>
+</head>
+<body>
+
+  <!-- ============ HEADER ============ -->
+  <header id="site-header">
+    <div class="container">
+      <nav class="nav-inner" role="navigation" aria-label="Main navigation">
+        <a href="index.html" class="nav-logo" aria-label="Colon H2O &ndash; Home">
+          <img src="assets/images/full-logo.png" alt="Colon H2O logo" width="120" height="44" onerror="this.style.display='none'" />
+          <span class="nav-logo-text">Colon H<sub>2</sub>O</span>
+        </a>
+        <ul class="nav-links" role="list">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="products.html">Products</a></li>
+          <li><a href="treatments.html">Treatments</a></li>
+          <li><a href="gallery.html">Gallery</a></li>
+          <li><a href="faq.html" class="active">FAQ</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+        <div class="nav-cta">
+          <a href="tel:0825642526" class="btn btn-call" aria-label="Call Colon H2O">
+            <i class="fa-solid fa-phone" aria-hidden="true"></i> Call
+          </a>
+          <a href="https://wa.me/27825642526?text=Hi%20Jeanette%2C%20I%27d%20like%20to%20find%20out%20more%20about%20colon%20hydrotherapy%20at%20Colon%20H2O%20and%20book%20a%20session." target="_blank" rel="noopener noreferrer" class="btn btn-whatsapp" aria-label="WhatsApp Colon H2O">
+            <i class="fa-brands fa-whatsapp" aria-hidden="true"></i> WhatsApp
+          </a>
+        </div>
+        <button class="hamburger" aria-label="Open navigation" aria-expanded="false" aria-controls="mobile-nav">
+          <span></span><span></span><span></span>
+        </button>
+      </nav>
+    </div>
+  </header>
+
+  <!-- ============ MOBILE NAV ============ -->
+  <nav id="mobile-nav" class="mobile-nav" role="navigation" aria-label="Mobile navigation">
+    <a href="index.html">Home</a>
+    <a href="about.html">About</a>
+    <a href="products.html">Products</a>
+    <a href="treatments.html">Treatments</a>
+    <a href="gallery.html">Gallery</a>
+    <a href="faq.html" class="active">FAQ</a>
+    <a href="contact.html">Contact</a>
+    <div class="mobile-nav-cta">
+      <a href="tel:0825642526" class="btn btn-call"><i class="fa-solid fa-phone" aria-hidden="true"></i> Call Now</a>
+      <a href="https://wa.me/27825642526?text=Hi%20Jeanette%2C%20I%27d%20like%20to%20find%20out%20more%20about%20colon%20hydrotherapy%20at%20Colon%20H2O%20and%20book%20a%20session." target="_blank" rel="noopener noreferrer" class="btn btn-whatsapp"><i class="fa-brands fa-whatsapp" aria-hidden="true"></i> WhatsApp</a>
+      <a href="contact.html" class="btn btn-primary">Book Appointment</a>
+    </div>
+  </nav>
+
+  <main>
+
+    <!-- ============ PAGE HERO ============ -->
+    <section class="hero-inner page-offset" aria-label="FAQ page hero">
+      <div class="container">
+        <p class="breadcrumb"><a href="index.html">Home</a> &rsaquo; FAQ</p>
+        <div class="hero-eyebrow">
+          <i class="fa-solid fa-circle-question" aria-hidden="true"></i>
+          Got Questions?
+        </div>
+        <h1>Frequently Asked Questions</h1>
+        <p class="hero-sub">Honest, straightforward answers about colon hydrotherapy at Colon H2O &ndash; from what to expect, to safety and aftercare.</p>
+        <div class="cta-group" style="margin-top:1.5rem;">
+          <a href="contact.html" class="btn btn-primary"><i class="fa-solid fa-calendar-check" aria-hidden="true"></i> Book a Session</a>
+          <a href="https://wa.me/27825642526?text=Hi%20Jeanette%2C%20I%27d%20like%20to%20find%20out%20more%20about%20colon%20hydrotherapy%20at%20Colon%20H2O%20and%20book%20a%20session." target="_blank" rel="noopener noreferrer" class="btn btn-whatsapp"><i class="fa-brands fa-whatsapp" aria-hidden="true"></i> Ask Jeanette</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Quick stats -->
+    <div style="display:flex;flex-wrap:wrap;justify-content:center;background:var(--primary-dark);color:#fff;" role="list" aria-label="FAQ overview">
+      <div style="display:flex;flex-direction:column;align-items:center;gap:0.25rem;padding:1.2rem 2.5rem;border-right:1px solid rgba(255,255,255,0.12);" role="listitem"><strong style="font-family:'Poppins',sans-serif;font-size:1.6rem;font-weight:800;">10</strong><span style="font-size:0.76rem;font-family:'Poppins',sans-serif;font-weight:500;opacity:0.8;text-transform:uppercase;letter-spacing:0.06em;">Questions Answered</span></div>
+      <div style="display:flex;flex-direction:column;align-items:center;gap:0.25rem;padding:1.2rem 2.5rem;border-right:1px solid rgba(255,255,255,0.12);" role="listitem"><strong style="font-family:'Poppins',sans-serif;font-size:1.6rem;font-weight:800;">RICTAT</strong><span style="font-size:0.76rem;font-family:'Poppins',sans-serif;font-weight:500;opacity:0.8;text-transform:uppercase;letter-spacing:0.06em;">Certified Therapist</span></div>
+      <div style="display:flex;flex-direction:column;align-items:center;gap:0.25rem;padding:1.2rem 2.5rem;border-right:1px solid rgba(255,255,255,0.12);" role="listitem"><strong style="font-family:'Poppins',sans-serif;font-size:1.6rem;font-weight:800;">FREE</strong><span style="font-size:0.76rem;font-family:'Poppins',sans-serif;font-weight:500;opacity:0.8;text-transform:uppercase;letter-spacing:0.06em;">Probiotic Implant</span></div>
+      <div style="display:flex;flex-direction:column;align-items:center;gap:0.25rem;padding:1.2rem 2.5rem;" role="listitem"><strong style="font-family:'Poppins',sans-serif;font-size:1.6rem;font-weight:800;">R750</strong><span style="font-size:0.76rem;font-family:'Poppins',sans-serif;font-weight:500;opacity:0.8;text-transform:uppercase;letter-spacing:0.06em;">Per Session</span></div>
+    </div>
+
+    <!-- ============ FAQ SECTION ============ -->
+    <section class="section bg-light" aria-labelledby="faq-heading">
+      <div class="container">
+        <span class="section-accent" aria-hidden="true"></span>
+        <h2 class="section-title" id="faq-heading">Your Questions Answered</h2>
+        <p class="section-sub">Can&rsquo;t find your answer? Contact Jeanette directly via WhatsApp or call.</p>
+
+        <div class="faq-layout">
+
+          <!-- Sidebar -->
+          <aside class="faq-sidebar" aria-label="Contact sidebar">
+            <div class="faq-sidebar-badge"><i class="fa-solid fa-award" aria-hidden="true"></i></div>
+            <h3>RICTAT Certified</h3>
+            <p>Jeanette is a fully certified colon hydrotherapist &ndash; registered with the Register of Integrated Colon Therapists and Trainers.</p>
+            <p style="font-size:0.85rem;opacity:0.85;margin-bottom:1.5rem;">Still have a question? Reach out directly.</p>
+            <a href="contact.html" class="btn btn-white"><i class="fa-solid fa-calendar-check" aria-hidden="true"></i> Book a Session</a>
+            <a href="https://wa.me/27825642526?text=Hi%20Jeanette%2C%20I%27d%20like%20to%20find%20out%20more%20about%20colon%20hydrotherapy%20at%20Colon%20H2O%20and%20book%20a%20session." target="_blank" rel="noopener noreferrer" class="btn btn-wa"><i class="fa-brands fa-whatsapp" aria-hidden="true"></i> WhatsApp Jeanette</a>
+            <a href="tel:0825642526" class="btn btn-tel"><i class="fa-solid fa-phone" aria-hidden="true"></i> 082 564 2526</a>
+          </aside>
+
+          <!-- Accordion -->
+          <div class="faq-accordion" aria-label="FAQ accordion" role="list">
+
+            <div class="faq-item" role="listitem">
+              <div class="faq-top-bar"></div>
+              <button class="faq-question" aria-expanded="false">
+                <span class="faq-num">1</span>
+                <span class="faq-question-text">Is Jeanette RICTAT certified?</span>
+                <i class="fa-solid fa-chevron-down faq-chevron" aria-hidden="true"></i>
+              </button>
+              <div class="faq-answer">
+                <p>Yes. Jeanette van der Merwe is certified with <strong>RICTAT</strong> &ndash; the Register of Integrated Colon Therapists and Trainers. This internationally recognised professional body ensures that all registered practitioners have completed rigorous, standardised training in colon hydrotherapy and meet strict ethical and safety standards. Choosing a RICTAT-certified therapist gives you confidence that your treatment is performed safely and professionally.</p>
+              </div>
+            </div>
+
+            <div class="faq-item" role="listitem">
+              <div class="faq-top-bar"></div>
+              <button class="faq-question" aria-expanded="false">
+                <span class="faq-num">2</span>
+                <span class="faq-question-text">What is colon hydrotherapy?</span>
+                <i class="fa-solid fa-chevron-down faq-chevron" aria-hidden="true"></i>
+              </button>
+              <div class="faq-answer">
+                <p>Colon hydrotherapy (also called colonic irrigation or a colonic) is a safe, effective method of removing waste from the large intestine &ndash; without the use of drugs. Using regulated amounts of warm purified water, the colon is gently filled and emptied multiple times. The process softens and loosens built-up faecal matter, gas, and toxins, which are then flushed away. It rehabilitates the colon and helps reactivate its natural movement.</p>
+              </div>
+            </div>
+
+            <div class="faq-item" role="listitem">
+              <div class="faq-top-bar"></div>
+              <button class="faq-question" aria-expanded="false">
+                <span class="faq-num">3</span>
+                <span class="faq-question-text">Is colon hydrotherapy safe?</span>
+                <i class="fa-solid fa-chevron-down faq-chevron" aria-hidden="true"></i>
+              </button>
+              <div class="faq-answer">
+                <p>When performed by a qualified, certified therapist using sterile, single-use equipment, colon hydrotherapy is a safe and well-tolerated procedure. At Colon H2O, Jeanette uses <strong>sterile disposable equipment</strong> for every session &ndash; nothing is ever reused. Water pressure and temperature are carefully regulated throughout the treatment, and Jeanette is present throughout to ensure your comfort and safety. As with any health procedure, there are some contraindications &ndash; Jeanette will review your health history before treatment.</p>
+              </div>
+            </div>
+
+            <div class="faq-item" role="listitem">
+              <div class="faq-top-bar"></div>
+              <button class="faq-question" aria-expanded="false">
+                <span class="faq-num">4</span>
+                <span class="faq-question-text">Does it only cleanse part of the colon?</span>
+                <i class="fa-solid fa-chevron-down faq-chevron" aria-hidden="true"></i>
+              </button>
+              <div class="faq-answer">
+                <p>No. Unlike an enema, which only reaches the rectum and lower colon, colon hydrotherapy cleanses the <strong>entire large intestine</strong>. The water travels through the full length of the colon &ndash; from the sigmoid colon, through the descending, transverse, and ascending colon, all the way to the caecum. This makes it significantly more thorough and effective than a simple enema.</p>
+              </div>
+            </div>
+
+            <div class="faq-item" role="listitem">
+              <div class="faq-top-bar"></div>
+              <button class="faq-question" aria-expanded="false">
+                <span class="faq-num">5</span>
+                <span class="faq-question-text">Can't I get the same results with just one colonic?</span>
+                <i class="fa-solid fa-chevron-down faq-chevron" aria-hidden="true"></i>
+              </button>
+              <div class="faq-answer">
+                <p>One session is a great starting point and will produce noticeable results. However, years of accumulated waste and impacted matter cannot always be removed in a single session. Think of it like cleaning a house that hasn&rsquo;t been cleaned in a long time &ndash; the first clean removes a lot, but subsequent sessions remove progressively more. Jeanette will advise you on the ideal number of sessions based on your specific goals and health history.</p>
+              </div>
+            </div>
+
+            <div class="faq-item" role="listitem">
+              <div class="faq-top-bar"></div>
+              <button class="faq-question" aria-expanded="false">
+                <span class="faq-num">6</span>
+                <span class="faq-question-text">Will colonics cause my colon to stop functioning on its own?</span>
+                <i class="fa-solid fa-chevron-down faq-chevron" aria-hidden="true"></i>
+              </button>
+              <div class="faq-answer">
+                <p>This is a common concern, but the answer is no. Colon hydrotherapy is designed to <em>rehabilitate</em> the colon and <strong>reactivate its natural peristaltic movement</strong>, not suppress it. By removing stagnant waste and toxins, the colon is freed from the burden of moving compacted matter, and its natural muscle function is actually encouraged and improved. Many clients report more regular and easier bowel movements after a course of treatments.</p>
+              </div>
+            </div>
+
+            <div class="faq-item" role="listitem">
+              <div class="faq-top-bar"></div>
+              <button class="faq-question" aria-expanded="false">
+                <span class="faq-num">7</span>
+                <span class="faq-question-text">Will colon hydrotherapy wash out my intestinal flora?</span>
+                <i class="fa-solid fa-chevron-down faq-chevron" aria-hidden="true"></i>
+              </button>
+              <div class="faq-answer">
+                <p>While some beneficial bacteria may be removed along with the waste, this is a temporary effect. In fact, by removing the environment that feeds harmful bacteria, colon hydrotherapy often creates better conditions for healthy bacteria to thrive. To specifically counter this, Colon H2O includes a <strong>free probiotic implant</strong> with every session. This directly replenishes beneficial flora immediately after cleansing, helping to restore and even improve your gut microbiome balance.</p>
+              </div>
+            </div>
+
+            <div class="faq-item" role="listitem">
+              <div class="faq-top-bar"></div>
+              <button class="faq-question" aria-expanded="false">
+                <span class="faq-num">8</span>
+                <span class="faq-question-text">Is it embarrassing or undignified?</span>
+                <i class="fa-solid fa-chevron-down faq-chevron" aria-hidden="true"></i>
+              </button>
+              <div class="faq-answer">
+                <p>This is one of the most common concerns first-time clients have, and it is completely understandable. Jeanette goes out of her way to ensure every client feels at ease. Your <strong>privacy and dignity are maintained throughout</strong> the entire session in a private treatment room. Jeanette is professional, experienced, and warm &ndash; many clients say their biggest regret is that they were too embarrassed to come sooner. You are in safe, experienced hands.</p>
+              </div>
+            </div>
+
+            <div class="faq-item" role="listitem">
+              <div class="faq-top-bar"></div>
+              <button class="faq-question" aria-expanded="false">
+                <span class="faq-num">9</span>
+                <span class="faq-question-text">How long does a session take?</span>
+                <i class="fa-solid fa-chevron-down faq-chevron" aria-hidden="true"></i>
+              </button>
+              <div class="faq-answer">
+                <p>Each session takes approximately <strong>30 to 45 minutes</strong> to complete. For first-time clients, Jeanette begins with a thorough consultation to review your health history and answer any questions, so please allow approximately <strong>1.5 hours</strong> for your first visit. Follow-up sessions typically take less overall time as the consultation portion is shorter. Aftercare guidance is provided at the end of every session.</p>
+              </div>
+            </div>
+
+            <div class="faq-item" role="listitem">
+              <div class="faq-top-bar"></div>
+              <button class="faq-question" aria-expanded="false">
+                <span class="faq-num">10</span>
+                <span class="faq-question-text">What should I do before and after my session?</span>
+                <i class="fa-solid fa-chevron-down faq-chevron" aria-hidden="true"></i>
+              </button>
+              <div class="faq-answer">
+                <p><strong>Before:</strong> Avoid gas-forming foods (beans, cabbage, carbonated drinks) the day before and the day of your session. Do not eat for at least 2 hours beforehand. Favour vegetables and grains, and avoid fatty foods. Bring a clean boxer short to wear during the session.</p>
+                <p style="margin-top:0.75rem;"><strong>After:</strong> Your body may feel weary &ndash; this is normal. Rest where possible. Follow a basic, easy-to-digest diet as advised by Jeanette. Use the recommended intestinal flora supplements. Avoid alcohol and spicy food for at least 24 hours and drink plenty of water to support continued cleansing.</p>
+              </div>
+            </div>
+
+          </div><!-- end .faq-accordion -->
+        </div><!-- end .faq-layout -->
+
+        <!-- Mobile CTA -->
+        <div class="text-center mt-3" style="display:none" id="mobile-faq-cta">
+          <p>Still have questions?</p>
+          <div class="cta-group" style="justify-content:center">
+            <a href="contact.html" class="btn btn-primary"><i class="fa-solid fa-calendar-check" aria-hidden="true"></i> Book a Session</a>
+            <a href="https://wa.me/27825642526?text=Hi%20Jeanette%2C%20I%27d%20like%20to%20find%20out%20more%20about%20colon%20hydrotherapy%20at%20Colon%20H2O%20and%20book%20a%20session." target="_blank" rel="noopener noreferrer" class="btn btn-whatsapp"><i class="fa-brands fa-whatsapp" aria-hidden="true"></i> WhatsApp</a>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ============ CTA STRIP ============ -->
+    <section class="cta-strip" aria-label="Book a session">
+      <div class="container">
+        <h2>Ready to Get Started?</h2>
+        <p>Book a professional colon hydrotherapy session in Silver Lakes, Pretoria.</p>
+        <div class="cta-group">
+          <a href="contact.html" class="btn btn-white"><i class="fa-solid fa-calendar-check" aria-hidden="true"></i> Book an Appointment</a>
+          <a href="tel:0825642526" class="btn btn-outline" style="color:#fff;border-color:rgba(255,255,255,0.5)"><i class="fa-solid fa-phone" aria-hidden="true"></i> 082 564 2526</a>
+          <a href="https://wa.me/27825642526?text=Hi%20Jeanette%2C%20I%27d%20like%20to%20find%20out%20more%20about%20colon%20hydrotherapy%20at%20Colon%20H2O%20and%20book%20a%20session." target="_blank" rel="noopener noreferrer" class="btn btn-whatsapp"><i class="fa-brands fa-whatsapp" aria-hidden="true"></i> WhatsApp Us</a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ============ FOOTER ============ -->
+  <footer id="site-footer" role="contentinfo">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a href="index.html" class="nav-logo" aria-label="Colon H2O Home">
+            <span class="nav-logo-text">Colon H<sub>2</sub>O</span>
+          </a>
+          <p class="footer-tagline">A gentle way of cleaning your colon and reactivating its natural movement.</p>
+        </div>
+        <div class="footer-col">
+          <h4>Navigate</h4>
+          <ul class="footer-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="products.html">Products</a></li>
+            <li><a href="treatments.html">Treatments</a></li>
+            <li><a href="gallery.html">Gallery</a></li>
+            <li><a href="faq.html">FAQ</a></li>
+            <li><a href="contact.html">Contact &amp; Booking</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Legal</h4>
+          <ul class="footer-links">
+            <li><a href="privacy-policy.html">Privacy Policy</a></li>
+            <li><a href="terms-policy.html">Terms of Use</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Contact</h4>
+          <div class="footer-contact-item"><i class="fa-solid fa-phone" aria-hidden="true"></i><a href="tel:0825642526">082 564 2526</a></div>
+          <div class="footer-contact-item"><i class="fa-solid fa-envelope" aria-hidden="true"></i><a href="mailto:jeanette@colonh2o.co.za">jeanette@colonh2o.co.za</a></div>
+          <div class="footer-contact-item"><i class="fa-solid fa-location-dot" aria-hidden="true"></i><span>9 Nicklaus Street, Silver Lakes Golf Estate, Pretoria, 0081</span></div>
+        </div>
+      </div>
+      <hr class="footer-divider" />
+      <div class="footer-bottom">
+        <div class="footer-legal-links">
+          <a href="privacy-policy.html">Privacy Policy</a>
+          <a href="terms-policy.html">Terms of Use</a>
+        </div>
+        <p class="footer-copy">&copy; <span class="js-year"></span> Colon H2O (Pty) Ltd. All rights reserved.</p>
+        <a href="https://stratstudios.co.za" target="_blank" rel="noopener noreferrer" class="ss-credit">Designed by StratStudios</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Floating Contact Bar (mobile) -->
+  <div class="floating-bar" role="complementary" aria-label="Quick contact">
+    <a href="tel:0825642526" class="btn btn-call" aria-label="Call Colon H2O"><i class="fa-solid fa-phone" aria-hidden="true"></i> Call</a>
+    <a href="https://wa.me/27825642526?text=Hi%20Jeanette%2C%20I%27d%20like%20to%20find%20out%20more%20about%20colon%20hydrotherapy%20at%20Colon%20H2O%20and%20book%20a%20session." target="_blank" rel="noopener noreferrer" class="btn btn-whatsapp" aria-label="WhatsApp Colon H2O"><i class="fa-brands fa-whatsapp" aria-hidden="true"></i> WhatsApp</a>
+    <a href="contact.html" class="btn btn-primary" aria-label="Book appointment"><i class="fa-solid fa-calendar-check" aria-hidden="true"></i> Book</a>
+  </div>
+
+  <script src="js/main.js"></script>
+  <script>
+    // FAQ Accordion
+    (function () {
+      var items = document.querySelectorAll('.faq-item');
+      items.forEach(function (item) {
+        var btn = item.querySelector('.faq-question');
+        btn.addEventListener('click', function () {
+          var isOpen = item.classList.contains('open');
+          // Close all
+          items.forEach(function (i) {
+            i.classList.remove('open');
+            i.querySelector('.faq-question').setAttribute('aria-expanded', 'false');
+          });
+          // Open clicked if it was closed
+          if (!isOpen) {
+            item.classList.add('open');
+            btn.setAttribute('aria-expanded', 'true');
+          }
+        });
+      });
+      // Show mobile CTA on small screens
+      if (window.innerWidth < 1024) {
+        var mobileCta = document.getElementById('mobile-faq-cta');
+        if (mobileCta) mobileCta.style.display = 'block';
+      }
+    })();
+  </script>
+</body>
+</html>

@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Gallery | Colon Hydrotherapy Pretoria | Colon H2O Silver Lakes</title>
+  <meta name="description" content="See inside Colon H2O — our practice in Silver Lakes, Pretoria. View our clinic, treatment space, and watch our full introductory video about colon hydrotherapy." />
+  <meta name="keywords" content="colon hydrotherapy gallery Pretoria, Colon H2O Silver Lakes, colonic clinic Pretoria, colon hydrotherapy video" />
+  <!-- Favicons -->
+  <link rel="icon" type="image/x-icon" href="assets/favicon/favicon.ico" />
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon/favicon-32x32.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="assets/favicon/favicon-16x16.png" />
+  <link rel="apple-touch-icon" sizes="180x180" href="assets/favicon/apple-touch-icon.png" />
+  <link rel="manifest" href="assets/favicon/site.webmanifest" />
+  <meta name="theme-color" content="#01bbd6" />
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="css/styles.css" />
+  <style>
+    /* ---- Gallery Page Specific ---- */
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.25rem;
+    }
+    .gallery-grid-item {
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      background: linear-gradient(135deg, var(--primary-light) 0%, #e3fafd 100%);
+      aspect-ratio: 4/3;
+      position: relative;
+      cursor: pointer;
+      transition: transform var(--transition), box-shadow var(--transition);
+    }
+    .gallery-grid-item:hover { transform: scale(1.015); box-shadow: var(--shadow-lg); }
+    .gallery-grid-item.featured {
+      grid-column: 1 / -1;
+      aspect-ratio: 16/7;
+    }
+    .gallery-grid-item img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.5s ease;
+    }
+    .gallery-grid-item:hover img { transform: scale(1.04); }
+    .gallery-placeholder {
+      width: 100%; height: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 0.75rem;
+      color: var(--primary-dark);
+    }
+    .gallery-placeholder i { font-size: 2.5rem; opacity: 0.35; }
+    .gallery-placeholder span { font-size: 0.78rem; font-family: 'Poppins', sans-serif; color: var(--gray-dark); text-align: center; }
+    .gallery-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(0,80,95,0.55) 0%, transparent 60%);
+      opacity: 0;
+      transition: opacity var(--transition);
+      display: flex;
+      align-items: flex-end;
+      padding: 1rem;
+    }
+    .gallery-grid-item:hover .gallery-overlay { opacity: 1; }
+    .gallery-overlay-label {
+      color: #fff;
+      font-family: 'Poppins', sans-serif;
+      font-size: 0.82rem;
+      font-weight: 600;
+    }
+
+    /* Video section */
+    .video-wrapper {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 16/9;
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      background: #0a1b22;
+      box-shadow: var(--shadow-lg);
+    }
+    .video-wrapper video,
+    .video-wrapper iframe {
+      width: 100%; height: 100%;
+      position: absolute; inset: 0;
+      border: none;
+      object-fit: cover;
+    }
+    .video-placeholder {
+      width: 100%; height: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 1rem;
+      background: linear-gradient(135deg, #0a2634 0%, #01556a 100%);
+      cursor: pointer;
+    }
+    .video-play-btn {
+      width: 80px; height: 80px;
+      background: var(--primary);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      font-size: 1.8rem;
+      transition: background var(--transition), transform var(--transition);
+      border: none;
+      cursor: pointer;
+      padding-left: 5px;
+    }
+    .video-play-btn:hover { background: var(--primary-dark); transform: scale(1.08); }
+    .video-caption {
+      color: rgba(255,255,255,0.75);
+      font-family: 'Poppins', sans-serif;
+      font-size: 1rem;
+      font-weight: 500;
+      letter-spacing: 0.02em;
+    }
+
+    /* Lightbox */
+    .lightbox {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.92);
+      z-index: 9999;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+    }
+    .lightbox.open { opacity: 1; pointer-events: all; }
+    .lightbox-inner { position: relative; max-width: 90vw; max-height: 90vh; }
+    .lightbox-inner img { max-width: 100%; max-height: 90vh; border-radius: var(--radius); display: block; }
+    .lightbox-close {
+      position: absolute;
+      top: -2.5rem; right: 0;
+      background: none;
+      border: none;
+      color: #fff;
+      font-size: 1.8rem;
+      cursor: pointer;
+      padding: 0.25rem 0.5rem;
+      line-height: 1;
+      opacity: 0.7;
+    }
+    .lightbox-close:hover { opacity: 1; }
+
+    @media (min-width: 768px) {
+      .gallery-grid { grid-template-columns: repeat(3, 1fr); }
+      .gallery-grid-item.featured { aspect-ratio: 16/6; }
+    }
+    @media (min-width: 1024px) {
+      .gallery-grid { grid-template-columns: repeat(4, 1fr); }
+      .gallery-grid-item.featured { grid-column: 1 / -1; aspect-ratio: 21/6; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ============ HEADER ============ -->
+  <header id="site-header">
+    <div class="container">
+      <nav class="nav-inner" role="navigation" aria-label="Main navigation">
+        <a href="index.html" class="nav-logo" aria-label="Colon H2O — Home">
+          <img src="assets/images/full-logo.png" alt="Colon H2O logo" width="120" height="44" onerror="this.style.display='none'" />
+          <span class="nav-logo-text">Colon H<sub>2</sub>O</span>
+        </a>
+        <ul class="nav-links" role="list">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="products.html">Products</a></li>
+          <li><a href="treatments.html">Treatments</a></li>
+          <li><a href="gallery.html" class="active">Gallery</a></li>
+          <li><a href="faq.html">FAQ</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+        <div class="nav-cta">
+          <a href="tel:0825642526" class="btn btn-call" aria-label="Call Colon H2O">
+            <i class="fa-solid fa-phone" aria-hidden="true"></i> Call
+          </a>
+          <a href="https://wa.me/27825642526?text=Hi%20Jeanette%2C%20I%27d%20like%20to%20find%20out%20more%20about%20colon%20hydrotherapy%20at%20Colon%20H2O%20and%20book%20a%20session." target="_blank" rel="noopener noreferrer" class="btn btn-whatsapp" aria-label="WhatsApp Colon H2O">
+            <i class="fa-brands fa-whatsapp" aria-hidden="true"></i> WhatsApp
+          </a>
+        </div>
+        <button class="hamburger" aria-label="Open navigation" aria-expanded="false" aria-controls="mobile-nav">
+          <span></span><span></span><span></span>
+        </button>
+      </nav>
+    </div>
+  </header>
+
+  <!-- ============ MOBILE NAV ============ -->
+  <nav id="mobile-nav" class="mobile-nav" role="navigation" aria-label="Mobile navigation">
+    <a href="index.html">Home</a>
+    <a href="about.html">About</a>
+    <a href="products.html">Products</a>
+    <a href="treatments.html">Treatments</a>
+    <a href="gallery.html" class="active">Gallery</a>
+    <a href="faq.html">FAQ</a>
+    <a href="contact.html">Contact</a>
+    <div class="mobile-nav-cta">
+      <a href="tel:0825642526" class="btn btn-call"><i class="fa-solid fa-phone" aria-hidden="true"></i> Call Now</a>
+      <a href="https://wa.me/27825642526?text=Hi%20Jeanette%2C%20I%27d%20like%20to%20find%20out%20more%20about%20colon%20hydrotherapy%20at%20Colon%20H2O%20and%20book%20a%20session." target="_blank" rel="noopener noreferrer" class="btn btn-whatsapp"><i class="fa-brands fa-whatsapp" aria-hidden="true"></i> WhatsApp</a>
+      <a href="contact.html" class="btn btn-primary">Enquire Now</a>
+    </div>
+  </nav>
+
+  <main>
+
+    <!-- ============ PAGE HERO ============ -->
+    <section class="hero-inner page-offset" aria-label="Gallery page hero">
+      <div class="container">
+        <p class="breadcrumb"><a href="index.html">Home</a> &rsaquo; Gallery</p>
+        <div class="hero-eyebrow">
+          <i class="fa-solid fa-images" aria-hidden="true"></i>
+          A Look Inside
+        </div>
+        <h1>Gallery</h1>
+        <p class="hero-sub">Step inside Colon H2O &mdash; our serene, private practice in Silver Lakes, Pretoria. Watch our introduction video and explore the space.</p>
+        <div class="cta-group" style="margin-top:1.5rem;">
+          <a href="contact.html" class="btn btn-primary"><i class="fa-solid fa-calendar-check" aria-hidden="true"></i> Book a Session</a>
+          <a href="https://wa.me/27825642526?text=Hi%20Jeanette%2C%20I%27d%20like%20to%20find%20out%20more%20about%20colon%20hydrotherapy%20at%20Colon%20H2O%20and%20book%20a%20session." target="_blank" rel="noopener noreferrer" class="btn btn-whatsapp"><i class="fa-brands fa-whatsapp" aria-hidden="true"></i> WhatsApp</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ VIDEO SECTION ============ -->
+    <section class="section" aria-labelledby="video-heading">
+      <div class="container">
+        <div class="section-header reveal">
+          <h2 id="video-heading">Tour of the Practice</h2>
+          <p>Watch Jeanette walk you through the Colon H2O practice — see the treatment room, equipment, and what to expect from your visit.</p>
+        </div>
+        <div class="video-wrapper reveal">
+          <video
+            controls
+            preload="metadata"
+            poster="assets/images/jeanette-front-shop.png"
+            aria-label="Tour of the Colon H2O practice in Silver Lakes, Pretoria">
+            <source src="assets/tour%20of%20the%20practise.mp4" type="video/mp4" />
+            Your browser does not support the video element.
+          </video>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ YOUTUBE VIDEO ============ -->
+    <section class="section bg-light" aria-labelledby="yt-heading">
+      <div class="container">
+        <div class="section-header reveal">
+          <h2 id="yt-heading">What Is Colon Hydrotherapy?</h2>
+          <p>Not sure what to expect? Watch this short overview of colon hydrotherapy — what it is, how it works, and the health benefits it can offer.</p>
+        </div>
+        <div class="video-wrapper reveal">
+          <iframe
+            src="https://www.youtube-nocookie.com/embed/QaNqu2vfNjU?rel=0&modestbranding=1"
+            title="What is Colon Hydrotherapy? Benefits and Overview"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowfullscreen
+            loading="lazy"
+            aria-label="Educational video: what is colon hydrotherapy and its benefits">
+          </iframe>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ PHOTO GALLERY ============ -->
+    <section class="section" aria-labelledby="photos-heading">
+      <div class="container">
+        <div class="section-header reveal">
+          <h2 id="photos-heading">The Practice</h2>
+          <p>Professional, welcoming, and completely private — see the Colon H2O practice at Silver Lakes Golf Estate.</p>
+        </div>
+        <div class="gallery-grid">
+
+          <!-- Featured / wide image — Jeanette at Nine building / main exterior -->
+          <div class="gallery-grid-item featured reveal" data-caption="Jeanette van der Merwe — Colon H2O, Silver Lakes" tabindex="0" role="button" aria-label="View full image: Jeanette at the practice">
+            <img src="assets/images/jeanette-front-shop.png" alt="Jeanette van der Merwe standing at the Colon H2O practice at Silver Lakes" />
+            <div class="gallery-overlay"><span class="gallery-overlay-label">Jeanette van der Merwe — Colon H2O, Silver Lakes</span></div>
+          </div>
+
+          <!-- Gallery item 2 -->
+          <div class="gallery-grid-item reveal reveal-delay-1" data-caption="Colon H2O Practice" tabindex="0" role="button" aria-label="View full image: Colon H2O practice">
+            <img src="assets/images/colon-hero.png" alt="The Colon H2O practice — professional and private" />
+            <div class="gallery-overlay"><span class="gallery-overlay-label">Colon H2O Practice</span></div>
+          </div>
+
+          <!-- Gallery item 3 -->
+          <div class="gallery-grid-item reveal reveal-delay-2" data-caption="Colon hydrotherapy equipment" tabindex="0" role="button" aria-label="View full image: equipment">
+            <img src="assets/images/gallery/gallery-2.jpg" alt="Professional RICTAT-approved colon hydrotherapy equipment" onerror="this.style.display='none'" />
+            <div class="gallery-placeholder" aria-hidden="true">
+              <i class="fa-solid fa-image"></i>
+              <span>Upload: gallery/gallery-2.jpg<br>Therapy equipment</span>
+            </div>
+            <div class="gallery-overlay"><span class="gallery-overlay-label">Professional RICTAT-approved equipment</span></div>
+          </div>
+
+          <!-- Gallery item 4 -->
+          <div class="gallery-grid-item reveal reveal-delay-3" data-caption="Digestive health product range" tabindex="0" role="button" aria-label="View full image: product range">
+            <img src="assets/images/products-display.png" alt="Colon H2O digestive health products on display" />
+            <div class="gallery-overlay"><span class="gallery-overlay-label">Digestive health product range</span></div>
+          </div>
+
+          <!-- Gallery item 5 -->
+          <div class="gallery-grid-item reveal" data-caption="Gut wellness &amp; healthy living" tabindex="0" role="button" aria-label="View full image: wellness">
+            <img src="assets/images/wellness-food.png" alt="Healthy gut-friendly foods to complement your colon hydrotherapy" />
+            <div class="gallery-overlay"><span class="gallery-overlay-label">Gut wellness &amp; healthy living</span></div>
+          </div>
+
+          <!-- Gallery item 6 -->
+          <div class="gallery-grid-item reveal reveal-delay-1" data-caption="Colon H2O products" tabindex="0" role="button" aria-label="View full image: products range close-up">
+            <img src="assets/images/products-display.png" alt="Colon H2O product range — probiotics, enzymes and digestive health supplements" style="filter:brightness(0.92) saturate(1.1);" />
+            <div class="gallery-overlay"><span class="gallery-overlay-label">Digestive health supplements</span></div>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ============ CTA STRIP ============ -->
+    <section class="cta-strip" aria-label="Book a session">
+      <div class="container">
+        <h2>Experience It For Yourself</h2>
+        <p>A single session could be the start of a transformative wellness journey. Book yours today at Colon H2O, Silver Lakes, Pretoria.</p>
+        <div class="cta-group">
+          <a href="contact.html" class="btn btn-white"><i class="fa-solid fa-calendar-check" aria-hidden="true"></i> Book a Session</a>
+          <a href="treatments.html" class="btn btn-outline" style="color:#fff;border-color:rgba(255,255,255,0.5)"><i class="fa-solid fa-list" aria-hidden="true"></i> See Pricing</a>
+          <a href="https://wa.me/27825642526?text=Hi%20Jeanette%2C%20I%27d%20like%20to%20find%20out%20more%20about%20colon%20hydrotherapy%20at%20Colon%20H2O%20and%20book%20a%20session." target="_blank" rel="noopener noreferrer" class="btn btn-whatsapp"><i class="fa-brands fa-whatsapp" aria-hidden="true"></i> WhatsApp Us</a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Lightbox -->
+  <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Image lightbox">
+    <div class="lightbox-inner">
+      <button class="lightbox-close" aria-label="Close lightbox"><i class="fa-solid fa-xmark" aria-hidden="true"></i></button>
+      <img src="" alt="" id="lightbox-img" />
+    </div>
+  </div>
+
+  <!-- ============ FOOTER ============ -->
+  <footer id="site-footer" role="contentinfo">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a href="index.html" class="nav-logo" aria-label="Colon H2O Home">
+            <span class="nav-logo-text">Colon H<sub>2</sub>O</span>
+          </a>
+          <p class="footer-tagline">A gentle way of cleaning your colon and reactivating its natural movement.</p>
+        </div>
+        <div class="footer-col">
+          <h4>Navigate</h4>
+          <ul class="footer-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="products.html">Products</a></li>
+            <li><a href="treatments.html">Treatments</a></li>
+            <li><a href="gallery.html">Gallery</a></li>
+            <li><a href="faq.html">FAQ</a></li>
+            <li><a href="contact.html">Contact &amp; Booking</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Legal</h4>
+          <ul class="footer-links">
+            <li><a href="privacy-policy.html">Privacy Policy</a></li>
+            <li><a href="terms-policy.html">Terms of Use</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Contact</h4>
+          <div class="footer-contact-item"><i class="fa-solid fa-phone" aria-hidden="true"></i><a href="tel:0825642526">082 564 2526</a></div>
+          <div class="footer-contact-item"><i class="fa-solid fa-envelope" aria-hidden="true"></i><a href="mailto:jeanette@colonh2o.co.za">jeanette@colonh2o.co.za</a></div>
+          <div class="footer-contact-item"><i class="fa-solid fa-location-dot" aria-hidden="true"></i><span>9 Nicklaus Street, Silver Lakes Golf Estate, Pretoria, 0081</span></div>
+        </div>
+      </div>
+      <hr class="footer-divider" />
+      <div class="footer-bottom">
+        <div class="footer-legal-links">
+          <a href="privacy-policy.html">Privacy Policy</a>
+          <a href="terms-policy.html">Terms of Use</a>
+        </div>
+        <p class="footer-copy">&copy; <span class="js-year"></span> Colon H2O (Pty) Ltd. All rights reserved.</p>
+        <a href="https://stratstudios.co.za" target="_blank" rel="noopener noreferrer" class="ss-credit">Designed by StratStudios</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Floating Contact Bar (mobile) -->
+  <div class="floating-bar" role="complementary" aria-label="Quick contact">
+    <a href="tel:0825642526" class="btn btn-call" aria-label="Call Colon H2O"><i class="fa-solid fa-phone" aria-hidden="true"></i> Call</a>
+    <a href="https://wa.me/27825642526?text=Hi%20Jeanette%2C%20I%27d%20like%20to%20find%20out%20more%20about%20colon%20hydrotherapy%20at%20Colon%20H2O%20and%20book%20a%20session." target="_blank" rel="noopener noreferrer" class="btn btn-whatsapp" aria-label="WhatsApp Colon H2O"><i class="fa-brands fa-whatsapp" aria-hidden="true"></i> WhatsApp</a>
+    <a href="contact.html" class="btn btn-primary" aria-label="Book appointment"><i class="fa-solid fa-calendar-check" aria-hidden="true"></i> Book</a>
+  </div>
+
+  <script src="js/main.js"></script>
+  <script>
+    // Gallery lightbox
+    (function() {
+      var lightbox = document.getElementById('lightbox');
+      var lightboxImg = document.getElementById('lightbox-img');
+      var closeBtn = lightbox.querySelector('.lightbox-close');
+      var items = document.querySelectorAll('.gallery-grid-item');
+
+      items.forEach(function(item) {
+        item.addEventListener('click', function() {
+          var img = item.querySelector('img');
+          if (!img || img.style.display === 'none') return;
+          lightboxImg.src = img.src;
+          lightboxImg.alt = img.alt;
+          lightbox.classList.add('open');
+          closeBtn.focus();
+        });
+        item.addEventListener('keydown', function(e) {
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            item.click();
+          }
+        });
+      });
+
+      function closeLightbox() {
+        lightbox.classList.remove('open');
+        lightboxImg.src = '';
+      }
+
+      closeBtn.addEventListener('click', closeLightbox);
+      lightbox.addEventListener('click', function(e) {
+        if (e.target === lightbox) closeLightbox();
+      });
+      document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape' && lightbox.classList.contains('open')) closeLightbox();
+      });
+    })();
+  </script>
+</body>
+</html>

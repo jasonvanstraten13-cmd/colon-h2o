@@ -1,0 +1,581 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Colon Hydrotherapy Treatments Pretoria | Pricing | Colon H2O</title>
+  <meta name="description" content="Professional colon hydrotherapy single session in Pretoria &ndash; R750. Free probiotic implant included. RICTAT-certified therapist at Silver Lakes Gold Estate." />
+  <meta name="keywords" content="colon hydrotherapy price Pretoria, colon cleansing session cost, colon hydrotherapy R750, Silver Lakes colon therapy" />
+  <!-- Favicons -->
+  <link rel="icon" type="image/x-icon" href="assets/favicon/favicon.ico" />
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon/favicon-32x32.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="assets/favicon/favicon-16x16.png" />
+  <link rel="apple-touch-icon" sizes="180x180" href="assets/favicon/apple-touch-icon.png" />
+  <link rel="manifest" href="assets/favicon/site.webmanifest" />
+  <meta name="theme-color" content="#01bbd6" />
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="css/styles.css" />
+  <style>
+    /* ---- Treatments Page Specific ---- */
+
+    /* ── Trust bar ── */
+    .trust-bar {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 0;
+      background: var(--primary-dark);
+      color: var(--white);
+    }
+    .trust-bar-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.3rem;
+      padding: 1.4rem 2.5rem;
+      border-right: 1px solid rgba(255,255,255,0.12);
+      min-width: 160px;
+    }
+    .trust-bar-item:last-child { border-right: none; }
+    .trust-bar-item strong {
+      font-family: 'Poppins', sans-serif;
+      font-size: 1.7rem;
+      font-weight: 800;
+      line-height: 1;
+      color: var(--white);
+    }
+    .trust-bar-item span {
+      font-size: 0.78rem;
+      font-family: 'Poppins', sans-serif;
+      font-weight: 500;
+      opacity: 0.82;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      text-align: center;
+    }
+    @media (max-width: 600px) {
+      .trust-bar-item { padding: 1rem 1.5rem; min-width: 120px; }
+      .trust-bar-item strong { font-size: 1.35rem; }
+    }
+
+    /* ── Pricing split layout ── */
+    .treatment-split {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0;
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      box-shadow: var(--shadow-lg);
+      border: 1px solid rgba(1,187,214,0.14);
+      max-width: 900px;
+      margin: 0 auto 2.5rem;
+    }
+    @media (max-width: 720px) {
+      .treatment-split { grid-template-columns: 1fr; }
+    }
+    .treatment-img-col {
+      position: relative;
+      min-height: 320px;
+      overflow: hidden;
+      background: var(--primary-light);
+    }
+    .treatment-img-col img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.5s ease;
+    }
+    .treatment-split:hover .treatment-img-col img { transform: scale(1.04); }
+    .treatment-img-col::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(0,170,195,0.45) 0%, transparent 60%);
+    }
+    .treatment-img-badge {
+      position: absolute;
+      bottom: 1.25rem; left: 1.25rem;
+      background: var(--white);
+      color: var(--primary-dark);
+      font-family: 'Poppins', sans-serif;
+      font-size: 0.78rem;
+      font-weight: 700;
+      padding: 0.35rem 0.85rem;
+      border-radius: 50px;
+      z-index: 1;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+    .treatment-img-badge i { color: var(--primary); }
+    .treatment-detail-col {
+      background: var(--white);
+      padding: 2.25rem 2rem;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+    }
+    .treatment-detail-col::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 4px;
+      background: linear-gradient(90deg, var(--primary-dark), var(--primary));
+    }
+    .treatment-price-block {
+      display: flex;
+      align-items: baseline;
+      gap: 0.4rem;
+      margin: 0.5rem 0 1rem;
+    }
+    .treatment-price-amount {
+      font-family: 'Poppins', sans-serif;
+      font-size: 3rem;
+      font-weight: 900;
+      color: var(--primary-dark);
+      line-height: 1;
+    }
+    .treatment-price-cents {
+      font-family: 'Poppins', sans-serif;
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: var(--primary);
+    }
+    .treatment-price-label {
+      font-size: 0.78rem;
+      font-family: 'Poppins', sans-serif;
+      font-weight: 500;
+      color: var(--gray-dark);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      align-self: flex-end;
+      padding-bottom: 0.4rem;
+    }
+    .includes-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.55rem 0.75rem;
+      margin: 1rem 0 1.25rem;
+      padding: 1.1rem;
+      background: var(--bg-section);
+      border-radius: var(--radius);
+      border: 1px solid rgba(1,187,214,0.1);
+    }
+    @media (max-width: 480px) { .includes-grid { grid-template-columns: 1fr; } }
+    .inc-item {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.82rem;
+      font-family: 'Poppins', sans-serif;
+      font-weight: 500;
+      color: var(--text-dark);
+    }
+    .inc-item i { color: var(--primary); font-size: 0.85rem; flex-shrink: 0; }
+
+    /* ── Info note ── */
+    .info-note {
+      background: rgba(1,187,214,0.06);
+      border: 1px solid rgba(1,187,214,0.18);
+      border-radius: var(--radius);
+      padding: 0.9rem 1.1rem;
+      display: flex;
+      gap: 0.7rem;
+      align-items: flex-start;
+      margin-bottom: 1.25rem;
+    }
+    .info-note i { color: var(--primary); margin-top: 0.1rem; flex-shrink: 0; }
+    .info-note p { font-size: 0.83rem; margin: 0; line-height: 1.6; }
+
+    /* ── Numbered process steps ── */
+    .steps-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 1rem;
+      counter-reset: step;
+      position: relative;
+    }
+    @media (max-width: 900px) { .steps-grid { grid-template-columns: repeat(3, 1fr); } }
+    @media (max-width: 560px) { .steps-grid { grid-template-columns: 1fr 1fr; } }
+    .steps-grid::before {
+      content: '';
+      position: absolute;
+      top: 28px; left: 10%; right: 10%;
+      height: 2px;
+      background: linear-gradient(90deg, var(--primary-light), var(--primary), var(--primary-light));
+      z-index: 0;
+    }
+    @media (max-width: 900px) { .steps-grid::before { display: none; } }
+    .step-block {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      position: relative;
+      z-index: 1;
+    }
+    .step-num-circle {
+      width: 56px; height: 56px;
+      border-radius: 50%;
+      background: var(--primary);
+      color: var(--white);
+      font-family: 'Poppins', sans-serif;
+      font-size: 1.2rem;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 0.85rem;
+      box-shadow: 0 4px 16px rgba(1,187,214,0.35);
+      flex-shrink: 0;
+      border: 3px solid var(--white);
+      outline: 2px solid var(--primary);
+    }
+    .step-block h4 {
+      font-size: 0.88rem;
+      margin-bottom: 0.4rem;
+      line-height: 1.3;
+    }
+    .step-block p {
+      font-size: 0.78rem;
+      color: var(--gray-dark);
+      line-height: 1.55;
+      margin: 0;
+    }
+
+    /* ── Before/After cards with coloured top band ── */
+    .prep-card {
+      background: var(--white);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      box-shadow: var(--shadow-sm);
+      border: 1px solid rgba(1,187,214,0.1);
+      transition: transform var(--transition), box-shadow var(--transition);
+    }
+    .prep-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-lg); }
+    .prep-card-band {
+      height: 5px;
+      background: linear-gradient(90deg, var(--primary-dark), var(--primary));
+    }
+    .prep-card-body { padding: 1.75rem; }
+    .prep-icon {
+      width: 52px; height: 52px;
+      border-radius: 14px;
+      background: var(--primary-light);
+      border: 1px solid rgba(1,187,214,0.2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--primary-dark);
+      font-size: 1.2rem;
+      margin-bottom: 1rem;
+    }
+    .prep-card-body h3 { margin-bottom: 0.6rem; }
+    .prep-card-body p { font-size: 0.9rem; color: var(--gray-dark); line-height: 1.7; margin: 0; }
+
+    /* ── Upsell banner ── */
+    .upsell-banner {
+      background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 100%);
+      border-radius: var(--radius-lg);
+      padding: 2.5rem 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 2rem;
+      flex-wrap: wrap;
+      box-shadow: var(--shadow-lg);
+      color: var(--white);
+      margin-top: 3rem;
+    }
+    .upsell-banner-text h3 { color: var(--white); margin-bottom: 0.4rem; }
+    .upsell-banner-text p { color: rgba(255,255,255,0.85); font-size: 0.92rem; margin: 0; }
+    .upsell-banner .btn-white { flex-shrink: 0; }
+  </style>
+</head>
+<body>
+
+  <!-- ============ HEADER ============ -->
+  <header id="site-header">
+    <div class="container">
+      <nav class="nav-inner" role="navigation" aria-label="Main navigation">
+        <a href="index.html" class="nav-logo" aria-label="Colon H2O &ndash; Home">
+          <img src="assets/images/full-logo.png" alt="Colon H2O logo" width="120" height="44" onerror="this.style.display='none'" />
+          <span class="nav-logo-text">Colon H<sub>2</sub>O</span>
+        </a>
+        <ul class="nav-links" role="list">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="products.html">Products</a></li>
+          <li><a href="treatments.html" class="active">Treatments</a></li>
+          <li><a href="gallery.html">Gallery</a></li>
+          <li><a href="faq.html">FAQ</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+        <div class="nav-cta">
+          <a href="tel:0825642526" class="btn btn-call" aria-label="Call Colon H2O">
+            <i class="fa-solid fa-phone" aria-hidden="true"></i> Call
+          </a>
+          <a href="https://wa.me/27825642526?text=Hi%20Jeanette%2C%20I%27d%20like%20to%20find%20out%20more%20about%20colon%20hydrotherapy%20at%20Colon%20H2O%20and%20book%20a%20session." target="_blank" rel="noopener noreferrer" class="btn btn-whatsapp" aria-label="WhatsApp Colon H2O">
+            <i class="fa-brands fa-whatsapp" aria-hidden="true"></i> WhatsApp
+          </a>
+        </div>
+        <button class="hamburger" aria-label="Open navigation" aria-expanded="false" aria-controls="mobile-nav">
+          <span></span><span></span><span></span>
+        </button>
+      </nav>
+    </div>
+  </header>
+
+  <!-- ============ MOBILE NAV ============ -->
+  <nav id="mobile-nav" class="mobile-nav" role="navigation" aria-label="Mobile navigation">
+    <a href="index.html">Home</a>
+    <a href="about.html">About</a>
+    <a href="products.html">Products</a>
+    <a href="treatments.html" class="active">Treatments</a>
+    <a href="gallery.html">Gallery</a>
+    <a href="faq.html">FAQ</a>
+    <a href="contact.html">Contact</a>
+    <div class="mobile-nav-cta">
+      <a href="tel:0825642526" class="btn btn-call"><i class="fa-solid fa-phone" aria-hidden="true"></i> Call Now</a>
+      <a href="https://wa.me/27825642526?text=Hi%20Jeanette%2C%20I%27d%20like%20to%20find%20out%20more%20about%20colon%20hydrotherapy%20at%20Colon%20H2O%20and%20book%20a%20session." target="_blank" rel="noopener noreferrer" class="btn btn-whatsapp"><i class="fa-brands fa-whatsapp" aria-hidden="true"></i> WhatsApp</a>
+      <a href="contact.html" class="btn btn-primary">Book Appointment</a>
+    </div>
+  </nav>
+
+  <main>
+
+    <!-- ============ PAGE HERO ============ -->
+    <section class="hero-inner page-offset" aria-label="Treatments page hero">
+      <div class="container">
+        <p class="breadcrumb"><a href="index.html">Home</a> &rsaquo; Treatments</p>
+        <div class="hero-eyebrow">
+          <i class="fa-solid fa-droplet" aria-hidden="true"></i>
+          Professional Colon Hydrotherapy &ndash; Silver Lakes, Pretoria
+        </div>
+        <h1>Treatments &amp; Pricing</h1>
+        <p class="hero-sub">Simple, transparent pricing for professional colon hydrotherapy. Sterile, safe, and deeply restorative &ndash; every session includes a free probiotic implant.</p>
+        <div class="cta-group" style="margin-top:1.5rem;">
+          <a href="contact.html" class="btn btn-primary"><i class="fa-solid fa-calendar-check" aria-hidden="true"></i> Book a Session</a>
+          <a href="https://wa.me/27825642526?text=Hi%20Jeanette%2C%20I%27d%20like%20to%20find%20out%20more%20about%20colon%20hydrotherapy%20at%20Colon%20H2O%20and%20book%20a%20session." target="_blank" rel="noopener noreferrer" class="btn btn-whatsapp"><i class="fa-brands fa-whatsapp" aria-hidden="true"></i> WhatsApp</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ TRUST BAR ============ -->
+    <div class="trust-bar" role="list" aria-label="Key facts">
+      <div class="trust-bar-item" role="listitem"><strong>R750</strong><span>Per Session</span></div>
+      <div class="trust-bar-item" role="listitem"><strong>RICTAT</strong><span>Certified Therapist</span></div>
+      <div class="trust-bar-item" role="listitem"><strong>100%</strong><span>Sterile Equipment</span></div>
+      <div class="trust-bar-item" role="listitem"><strong>Free</strong><span>Probiotic Implant</span></div>
+      <div class="trust-bar-item" role="listitem"><strong>Private</strong><span>Treatment Room</span></div>
+    </div>
+
+    <!-- ============ TREATMENT SPLIT CARD ============ -->
+    <section class="section bg-light" aria-labelledby="treatments-heading">
+      <div class="container">
+        <span class="section-accent" aria-hidden="true"></span>
+        <h2 class="section-title" id="treatments-heading">Our Treatment</h2>
+        <p class="section-sub">One professionally delivered session is all it takes to experience the difference. Here is everything that is included.</p>
+
+        <div class="treatment-split reveal">
+          <!-- Image column -->
+          <div class="treatment-img-col">
+            <img src="assets/images/jeanette-front-shop.png" alt="Jeanette van der Merwe, RICTAT-certified colon hydrotherapist at Colon H2O" loading="lazy" />
+            <div class="treatment-img-badge"><i class="fa-solid fa-certificate" aria-hidden="true"></i> RICTAT Certified</div>
+          </div>
+          <!-- Detail column -->
+          <div class="treatment-detail-col">
+            <div class="service-tag" style="display:inline-block;margin-bottom:0.5rem;">Core Treatment</div>
+            <h3 style="margin-bottom:0;">Single Session &mdash; Colon Hydrotherapy</h3>
+            <div class="treatment-price-block">
+              <span class="treatment-price-amount">R750</span>
+              <span class="treatment-price-cents">.00</span>
+              <span class="treatment-price-label">/ session</span>
+            </div>
+            <p style="font-size:0.9rem;color:var(--gray-dark);margin-bottom:1rem;">A professional colon hydrotherapy session using gentle purified water to cleanse the large intestine of built-up waste, toxins, and gas &mdash; reactivating its natural movement.</p>
+            <div class="includes-grid">
+              <div class="inc-item"><i class="fa-solid fa-circle-check" aria-hidden="true"></i> Free probiotic implant</div>
+              <div class="inc-item"><i class="fa-solid fa-circle-check" aria-hidden="true"></i> RICTAT-certified therapist</div>
+              <div class="inc-item"><i class="fa-solid fa-circle-check" aria-hidden="true"></i> Sterile disposable equipment</div>
+              <div class="inc-item"><i class="fa-solid fa-circle-check" aria-hidden="true"></i> Private treatment room</div>
+              <div class="inc-item"><i class="fa-solid fa-circle-check" aria-hidden="true"></i> Personalised aftercare</div>
+              <div class="inc-item"><i class="fa-solid fa-circle-check" aria-hidden="true"></i> 30&ndash;45 min session</div>
+            </div>
+            <div class="info-note">
+              <i class="fa-solid fa-circle-info" aria-hidden="true"></i>
+              <p>First visit: allow <strong>1.5 hours</strong> for consultation + treatment. Bring a clean boxer short &mdash; blanket provided.</p>
+            </div>
+            <div class="cta-group">
+              <a href="contact.html" class="btn btn-primary"><i class="fa-solid fa-calendar-check" aria-hidden="true"></i> Book Now</a>
+              <a href="https://wa.me/27825642526?text=Hi%20Jeanette%2C%20I%27d%20like%20to%20find%20out%20more%20about%20colon%20hydrotherapy%20at%20Colon%20H2O%20and%20book%20a%20session." target="_blank" rel="noopener noreferrer" class="btn btn-whatsapp"><i class="fa-brands fa-whatsapp" aria-hidden="true"></i> WhatsApp</a>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ============ HOW IT WORKS ============ -->
+    <section class="section bg-white" aria-labelledby="how-heading">
+      <div class="container">
+        <span class="section-accent" aria-hidden="true"></span>
+        <h2 class="section-title" id="how-heading">What Happens During Your Session</h2>
+        <p class="section-sub">Every treatment follows a structured, clinically professional 5-step process designed to be gentle and reassuring from start to finish.</p>
+
+        <div class="steps-grid">
+          <div class="step-block reveal">
+            <div class="step-num-circle">1</div>
+            <h4>Consultation</h4>
+            <p>Jeanette reviews your health history and treatment goals to personalise your session.</p>
+          </div>
+          <div class="step-block reveal reveal-delay-1">
+            <div class="step-num-circle">2</div>
+            <h4>Comfortable Setup</h4>
+            <p>You settle into a private treatment room with full dignity and privacy maintained.</p>
+          </div>
+          <div class="step-block reveal reveal-delay-2">
+            <div class="step-num-circle">3</div>
+            <h4>Colon Hydrotherapy</h4>
+            <p>Warm, purified water gently flushes built-up waste. Pressure and temperature are carefully controlled.</p>
+          </div>
+          <div class="step-block reveal reveal-delay-3">
+            <div class="step-num-circle">4</div>
+            <h4>Probiotic Implant</h4>
+            <p>A free probiotic implant is administered immediately after cleansing to restore healthy gut flora.</p>
+          </div>
+          <div class="step-block reveal reveal-delay-4">
+            <div class="step-num-circle">5</div>
+            <h4>Aftercare Guidance</h4>
+            <p>Jeanette provides personalised dietary advice and product recommendations to sustain your results.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ PREPARATION TIPS ============ -->
+    <section class="section bg-light" aria-labelledby="prep-heading">
+      <div class="container">
+        <span class="section-accent" aria-hidden="true"></span>
+        <h2 class="section-title" id="prep-heading">Before &amp; After Your Session</h2>
+        <p class="section-sub">Getting the most from your treatment starts with a little preparation. Here is what Jeanette recommends.</p>
+        <div class="cards-grid">
+          <div class="prep-card reveal reveal-delay-1">
+            <div class="prep-card-band"></div>
+            <div class="prep-card-body">
+              <div class="prep-icon"><i class="fa-solid fa-calendar-minus" aria-hidden="true"></i></div>
+              <h3>Before Your Session</h3>
+              <p>Avoid gas-forming foods (beans, cabbage) the day before and day of your session. Eat nothing at least 2 hours beforehand. Favour vegetables and whole grains &mdash; avoid fatty or processed food.</p>
+            </div>
+          </div>
+          <div class="prep-card reveal reveal-delay-2">
+            <div class="prep-card-band" style="background:linear-gradient(90deg,#00bfa5,#1eba95)"></div>
+            <div class="prep-card-body">
+              <div class="prep-icon"><i class="fa-solid fa-utensils" aria-hidden="true"></i></div>
+              <h3>After Your Session</h3>
+              <p>Rest is important &mdash; your body may feel weary, which is normal. Follow Jeanette&rsquo;s dietary advice, use the recommended flora products, avoid alcohol and spicy food for 24 hours, and hydrate well.</p>
+            </div>
+          </div>
+          <div class="prep-card reveal reveal-delay-3">
+            <div class="prep-card-band" style="background:linear-gradient(90deg,#5b8dee,#7c9eff)"></div>
+            <div class="prep-card-body">
+              <div class="prep-icon" style="background:rgba(91,141,238,0.1);border-color:rgba(91,141,238,0.2);color:#5b8dee"><i class="fa-solid fa-repeat" aria-hidden="true"></i></div>
+              <h3>How Many Sessions?</h3>
+              <p>This depends on your personal goals. One colonic removes some stagnant waste; subsequent sessions remove progressively more. Many clients benefit from a short series for optimal long-term results.</p>
+            </div>
+          </div>
+        </div>
+        <div class="text-center mt-3">
+          <a href="faq.html" class="btn btn-outline reveal"><i class="fa-solid fa-circle-question" aria-hidden="true"></i> Read All FAQs</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ PRODUCTS UPSELL BANNER ============ -->
+    <section class="section bg-white" aria-label="Enhance your results">
+      <div class="container">
+        <div class="upsell-banner reveal">
+          <div class="upsell-banner-text">
+            <h3>Enhance Your Results</h3>
+            <p>Complement your session with our range of high-potency probiotics, digestive enzymes, Rafaa probiotic drink, and parasite cleanser &mdash; available in-session or by enquiry.</p>
+          </div>
+          <a href="products.html" class="btn btn-white" style="flex-shrink:0;"><i class="fa-solid fa-flask" aria-hidden="true"></i> View Products &amp; Pricing</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ CTA STRIP ============ -->
+    <section class="cta-strip" aria-label="Book a session">
+      <div class="container">
+        <h2>Ready to Book Your R750 Session?</h2>
+        <p>Professional colon hydrotherapy, free probiotic implant included &ndash; Silver Lakes, Pretoria.</p>
+        <div class="cta-group">
+          <a href="contact.html" class="btn btn-white"><i class="fa-solid fa-calendar-check" aria-hidden="true"></i> Book an Appointment</a>
+          <a href="tel:0825642526" class="btn btn-outline" style="color:#fff;border-color:rgba(255,255,255,0.5)"><i class="fa-solid fa-phone" aria-hidden="true"></i> 082 564 2526</a>
+          <a href="https://wa.me/27825642526?text=Hi%20Jeanette%2C%20I%27d%20like%20to%20find%20out%20more%20about%20colon%20hydrotherapy%20at%20Colon%20H2O%20and%20book%20a%20session." target="_blank" rel="noopener noreferrer" class="btn btn-whatsapp"><i class="fa-brands fa-whatsapp" aria-hidden="true"></i> WhatsApp Us</a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ============ FOOTER ============ -->
+  <footer id="site-footer" role="contentinfo">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a href="index.html" class="nav-logo" aria-label="Colon H2O Home">
+            <span class="nav-logo-text">Colon H<sub>2</sub>O</span>
+          </a>
+          <p class="footer-tagline">A gentle way of cleaning your colon and reactivating its natural movement.</p>
+        </div>
+        <div class="footer-col">
+          <h4>Navigate</h4>
+          <ul class="footer-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="products.html">Products</a></li>
+            <li><a href="treatments.html">Treatments</a></li>
+            <li><a href="gallery.html">Gallery</a></li>
+            <li><a href="faq.html">FAQ</a></li>
+            <li><a href="contact.html">Contact &amp; Booking</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Legal</h4>
+          <ul class="footer-links">
+            <li><a href="privacy-policy.html">Privacy Policy</a></li>
+            <li><a href="terms-policy.html">Terms of Use</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Contact</h4>
+          <div class="footer-contact-item"><i class="fa-solid fa-phone" aria-hidden="true"></i><a href="tel:0825642526">082 564 2526</a></div>
+          <div class="footer-contact-item"><i class="fa-solid fa-envelope" aria-hidden="true"></i><a href="mailto:jeanette@colonh2o.co.za">jeanette@colonh2o.co.za</a></div>
+          <div class="footer-contact-item"><i class="fa-solid fa-location-dot" aria-hidden="true"></i><span>9 Nicklaus Street, Silver Lakes Golf Estate, Pretoria, 0081</span></div>
+        </div>
+      </div>
+      <hr class="footer-divider" />
+      <div class="footer-bottom">
+        <div class="footer-legal-links">
+          <a href="privacy-policy.html">Privacy Policy</a>
+          <a href="terms-policy.html">Terms of Use</a>
+        </div>
+        <p class="footer-copy">&copy; <span class="js-year"></span> Colon H2O (Pty) Ltd. All rights reserved.</p>
+        <a href="https://stratstudios.co.za" target="_blank" rel="noopener noreferrer" class="ss-credit">Designed by StratStudios</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Floating Contact Bar (mobile) -->
+  <div class="floating-bar" role="complementary" aria-label="Quick contact">
+    <a href="tel:0825642526" class="btn btn-call" aria-label="Call Colon H2O"><i class="fa-solid fa-phone" aria-hidden="true"></i> Call</a>
+    <a href="https://wa.me/27825642526?text=Hi%20Jeanette%2C%20I%27d%20like%20to%20find%20out%20more%20about%20colon%20hydrotherapy%20at%20Colon%20H2O%20and%20book%20a%20session." target="_blank" rel="noopener noreferrer" class="btn btn-whatsapp" aria-label="WhatsApp Colon H2O"><i class="fa-brands fa-whatsapp" aria-hidden="true"></i> WhatsApp</a>
+    <a href="contact.html" class="btn btn-primary" aria-label="Book appointment"><i class="fa-solid fa-calendar-check" aria-hidden="true"></i> Book</a>
+  </div>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
