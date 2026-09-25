@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin — Colon H2O Bookings</title>
+  <meta name="robots" content="noindex, nofollow" />
+  <link rel="icon" type="image/x-icon" href="assets/favicon/favicon.ico" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="stylesheet" href="css/styles.css" />
+  <style>
+    .admin-wrap { max-width: 900px; margin: 0 auto; padding: 2rem 1rem 4rem; }
+    .admin-card { background: var(--white); border-radius: var(--radius-lg); box-shadow: var(--shadow-sm); border: 1px solid rgba(1,187,214,0.12); padding: 1.75rem; margin-bottom: 1.5rem; }
+    .booking-row { border-top: 1px solid rgba(1,187,214,0.1); padding: 1rem 0; }
+    .booking-row:first-child { border-top: none; }
+    .booking-actions { display: flex; gap: 0.6rem; margin-top: 0.6rem; }
+    .btn-deny { background: #c0392b; color: var(--white); }
+    .btn-deny:hover { background: #a93226; }
+    .cal-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 6px; margin-top: 1rem; }
+    .cal-headcell { font-family: 'Poppins', sans-serif; font-weight: 700; font-size: 0.75rem; text-align: center; color: var(--gray-dark); padding: 4px 0; }
+    .cal-cell { min-height: 74px; border: 1px solid rgba(1,187,214,0.12); border-radius: 8px; padding: 6px; background: var(--white); font-size: 0.8rem; }
+    .cal-chip { background: var(--primary); color: var(--white); font-size: 0.7rem; border-radius: 6px; padding: 2px 4px; margin-top: 4px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  </style>
+</head>
+<body>
+
+  <!-- ============ HEADER ============ -->
+  <header id="site-header">
+    <div class="container">
+      <nav class="nav-inner" role="navigation" aria-label="Main navigation">
+        <a href="index.html" class="nav-logo" aria-label="Colon H2O &ndash; Home">
+          <img src="assets/images/full-logo.png" alt="Colon H2O logo" width="120" height="44" onerror="this.style.display='none'" />
+          <span class="nav-logo-text">Colon H<sub>2</sub>O</span>
+        </a>
+        <ul class="nav-links" role="list">
+          <li><a href="index.html">Home</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <div class="admin-wrap">
+
+      <!-- LOGIN -->
+      <div id="admin-login" class="admin-card" style="max-width:420px;margin:2rem auto;">
+        <h1 style="margin-bottom:1rem;">Admin Login</h1>
+        <div class="form-group">
+          <label for="login-email">Email</label>
+          <input type="email" id="login-email" autocomplete="username" />
+        </div>
+        <div class="form-group">
+          <label for="login-password">Password</label>
+          <input type="password" id="login-password" autocomplete="current-password" />
+        </div>
+        <p id="login-error" style="display:none;color:#c0392b;font-size:0.85rem;margin-bottom:1rem;"></p>
+        <button id="login-submit" class="btn btn-primary form-submit">Sign In</button>
+      </div>
+
+      <!-- DASHBOARD (hidden until signed in) -->
+      <div id="admin-dashboard" style="display:none;">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:1rem;">
+          <h1>Booking Admin</h1>
+          <button id="logout-btn" class="btn" style="background:transparent;border:2px solid rgba(1,187,214,0.3);color:var(--text-dark);">Sign Out</button>
+        </div>
+
+        <p id="admin-error" style="display:none;color:#c0392b;font-size:0.85rem;"></p>
+
+        <div class="admin-card">
+          <h2 id="pending-heading">Pending Requests</h2>
+          <div id="pending-list"></div>
+          <p id="pending-empty" style="display:none;color:var(--gray-dark);">No pending requests.</p>
+        </div>
+
+        <div class="admin-card">
+          <div style="display:flex;justify-content:space-between;align-items:center;">
+            <button id="cal-prev" class="btn" style="background:transparent;border:2px solid rgba(1,187,214,0.3);color:var(--text-dark);">&larr;</button>
+            <h2 id="cal-title" style="margin:0;"></h2>
+            <button id="cal-next" class="btn" style="background:transparent;border:2px solid rgba(1,187,214,0.3);color:var(--text-dark);">&rarr;</button>
+          </div>
+          <div id="cal-grid" class="cal-grid"></div>
+        </div>
+
+        <div class="admin-card" id="day-detail" style="display:none;">
+          <h2 id="day-detail-title"></h2>
+          <div id="day-detail-list"></div>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="js/supabase-config.js"></script>
+  <script src="js/booking-shared.js"></script>
+  <script src="js/admin.js"></script>
+</body>
+</html>
