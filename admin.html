@@ -67,6 +67,20 @@
         <p id="admin-error" style="display:none;color:#c0392b;font-size:0.85rem;"></p>
 
         <div class="admin-card">
+          <div style="display:flex;justify-content:space-between;align-items:center;">
+            <button id="cal-prev" class="btn" style="background:transparent;border:2px solid rgba(1,187,214,0.3);color:var(--text-dark);">&larr;</button>
+            <h2 id="cal-title" style="margin:0;"></h2>
+            <button id="cal-next" class="btn" style="background:transparent;border:2px solid rgba(1,187,214,0.3);color:var(--text-dark);">&rarr;</button>
+          </div>
+          <div id="cal-grid" class="cal-grid"></div>
+        </div>
+
+        <div class="admin-card" id="day-detail" style="display:none;">
+          <h2 id="day-detail-title"></h2>
+          <div id="day-detail-list"></div>
+        </div>
+
+        <div class="admin-card">
           <h2 id="pending-heading">Pending Requests</h2>
           <div id="pending-list"></div>
           <p id="pending-empty" style="display:none;color:var(--gray-dark);">No pending requests.</p>
@@ -94,20 +108,6 @@
 
           <div id="blocked-list" style="margin-top:1.5rem;"></div>
           <p id="blocked-empty" style="display:none;color:var(--gray-dark);">No upcoming blocked dates/slots.</p>
-        </div>
-
-        <div class="admin-card">
-          <div style="display:flex;justify-content:space-between;align-items:center;">
-            <button id="cal-prev" class="btn" style="background:transparent;border:2px solid rgba(1,187,214,0.3);color:var(--text-dark);">&larr;</button>
-            <h2 id="cal-title" style="margin:0;"></h2>
-            <button id="cal-next" class="btn" style="background:transparent;border:2px solid rgba(1,187,214,0.3);color:var(--text-dark);">&rarr;</button>
-          </div>
-          <div id="cal-grid" class="cal-grid"></div>
-        </div>
-
-        <div class="admin-card" id="day-detail" style="display:none;">
-          <h2 id="day-detail-title"></h2>
-          <div id="day-detail-list"></div>
         </div>
       </div>
 
