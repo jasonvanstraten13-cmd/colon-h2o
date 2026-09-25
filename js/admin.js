@@ -20,9 +20,25 @@ document.addEventListener('DOMContentLoaded', () => {
   const dayDetail = document.getElementById('day-detail');
   const dayDetailTitle = document.getElementById('day-detail-title');
   const dayDetailList = document.getElementById('day-detail-list');
+  const blockDate = document.getElementById('block-date');
+  const blockTime = document.getElementById('block-time');
+  const blockReason = document.getElementById('block-reason');
+  const blockError = document.getElementById('block-error');
+  const blockSubmit = document.getElementById('block-submit');
+  const blockedList = document.getElementById('blocked-list');
+  const blockedEmpty = document.getElementById('blocked-empty');
 
   let bookings = [];
+  let blockedSlots = [];
   let calDate = new Date(new Date().getFullYear(), new Date().getMonth(), 1);
+
+  hourlySlots().forEach((slot) => {
+    const opt = document.createElement('option');
+    opt.value = slot;
+    opt.textContent = slot;
+    blockTime.appendChild(opt);
+  });
+  blockDate.min = todayStr();
 
   function showError(el, message) {
     el.textContent = message;
@@ -30,13 +46,18 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   async function loadBookings() {
-    const { data, error } = await supabase.from('bookings').select('*').order('requested_date', { ascending: true });
-    if (error) {
+    const [bookingsRes, blockedRes] = await Promise.all([
+      supabase.from('bookings').select('*').order('requested_date', { ascending: true }),
+      supabase.from('blocked_slots').select('*').order('blocked_date', { ascending: true }),
+    ]);
+    if (bookingsRes.error) {
       showError(adminError, 'Failed to load bookings.');
       return;
     }
-    bookings = data || [];
+    bookings = bookingsRes.data || [];
+    blockedSlots = blockedRes.error ? [] : (blockedRes.data || []);
     renderPending();
+    renderBlockedList();
     renderCalendar();
   }
 
@@ -109,6 +130,11 @@ document.addEventListener('DOMContentLoaded', () => {
       approvedByDay[b.requested_date] = approvedByDay[b.requested_date] || [];
       approvedByDay[b.requested_date].push(b);
     });
+    const blockedByDay = {};
+    blockedSlots.forEach((b) => {
+      blockedByDay[b.blocked_date] = blockedByDay[b.blocked_date] || [];
+      blockedByDay[b.blocked_date].push(b);
+    });
 
     calTitle.textContent = calDate.toLocaleString(undefined, { month: 'long', year: 'numeric' });
     calGrid.innerHTML = '';
@@ -134,12 +160,16 @@ document.addEventListener('DOMContentLoaded', () => {
       const dateObj = new Date(calDate.getFullYear(), calDate.getMonth(), d);
       const key = dateObj.toISOString().slice(0, 10);
       const dayBookings = approvedByDay[key] || [];
+      const dayBlocks = blockedByDay[key] || [];
+      const isFullyBlocked = dayBlocks.some((b) => !b.blocked_time);
 
       const cell = document.createElement('div');
       cell.className = 'cal-cell';
       cell.style.cursor = 'pointer';
+      if (isFullyBlocked) cell.style.background = '#fdecea';
       cell.innerHTML = `<div>${d}</div>` + dayBookings.slice(0, 2).map((b) => `<div class="cal-chip">${b.requested_time} ${b.name}</div>`).join('') +
-        (dayBookings.length > 2 ? `<div style="font-size:0.7rem;color:var(--gray-dark);">+${dayBookings.length - 2} more</div>` : '');
+        (dayBookings.length > 2 ? `<div style="font-size:0.7rem;color:var(--gray-dark);">+${dayBookings.length - 2} more</div>` : '') +
+        (isFullyBlocked ? '<div style="font-size:0.7rem;color:#c0392b;">Blocked</div>' : '');
       cell.addEventListener('click', () => showDayDetail(key, dayBookings));
       calGrid.appendChild(cell);
     }
@@ -165,6 +195,61 @@ document.addEventListener('DOMContentLoaded', () => {
   document.getElementById('cal-next').addEventListener('click', () => {
     calDate = new Date(calDate.getFullYear(), calDate.getMonth() + 1, 1);
     renderCalendar();
+  });
+
+  function renderBlockedList() {
+    const upcoming = blockedSlots.filter((b) => b.blocked_date >= todayStr());
+    blockedEmpty.style.display = upcoming.length === 0 ? 'block' : 'none';
+    blockedList.innerHTML = '';
+
+    upcoming.forEach((b) => {
+      const row = document.createElement('div');
+      row.className = 'booking-row';
+      row.innerHTML = `
+        <p style="font-weight:700;">${b.blocked_date}${b.blocked_time ? ' at ' + b.blocked_time : ' (whole day)'}</p>
+        ${b.reason ? `<p style="font-size:0.85rem;color:var(--gray-dark);">${b.reason}</p>` : ''}
+        <div class="booking-actions">
+          <button class="btn btn-deny" data-remove-id="${b.id}">Remove</button>
+        </div>
+      `;
+      blockedList.appendChild(row);
+    });
+
+    blockedList.querySelectorAll('button[data-remove-id]').forEach((btn) => {
+      btn.addEventListener('click', async () => {
+        btn.disabled = true;
+        const { error } = await supabase.from('blocked_slots').delete().eq('id', btn.dataset.removeId);
+        if (error) {
+          showError(blockError, 'Failed to remove — please try again.');
+          btn.disabled = false;
+          return;
+        }
+        await loadBookings();
+      });
+    });
+  }
+
+  blockSubmit.addEventListener('click', async () => {
+    showError(blockError, '');
+    if (!blockDate.value) {
+      showError(blockError, 'Please choose a date.');
+      return;
+    }
+    blockSubmit.disabled = true;
+    const { error } = await supabase.from('blocked_slots').insert({
+      blocked_date: blockDate.value,
+      blocked_time: blockTime.value || null,
+      reason: blockReason.value || null,
+    });
+    blockSubmit.disabled = false;
+    if (error) {
+      showError(blockError, 'Failed to save — please try again.');
+      return;
+    }
+    blockDate.value = '';
+    blockTime.value = '';
+    blockReason.value = '';
+    await loadBookings();
   });
 
   document.getElementById('login-submit').addEventListener('click', async () => {

@@ -73,6 +73,30 @@
         </div>
 
         <div class="admin-card">
+          <h2>Block Dates</h2>
+          <p style="font-size:0.85rem;color:var(--gray-dark);margin-bottom:1rem;">Block off a whole day, or just one hourly slot, so clients can't request it.</p>
+          <div class="form-group">
+            <label for="block-date">Date</label>
+            <input type="date" id="block-date" />
+          </div>
+          <div class="form-group">
+            <label for="block-time">Time (leave blank to block the whole day)</label>
+            <select id="block-time">
+              <option value="">Whole day</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="block-reason">Reason (optional, for your own reference)</label>
+            <input type="text" id="block-reason" placeholder="e.g. Public holiday" />
+          </div>
+          <p id="block-error" style="display:none;color:#c0392b;font-size:0.85rem;margin-bottom:1rem;"></p>
+          <button id="block-submit" class="btn btn-primary">Block</button>
+
+          <div id="blocked-list" style="margin-top:1.5rem;"></div>
+          <p id="blocked-empty" style="display:none;color:var(--gray-dark);">No upcoming blocked dates/slots.</p>
+        </div>
+
+        <div class="admin-card">
           <div style="display:flex;justify-content:space-between;align-items:center;">
             <button id="cal-prev" class="btn" style="background:transparent;border:2px solid rgba(1,187,214,0.3);color:var(--text-dark);">&larr;</button>
             <h2 id="cal-title" style="margin:0;"></h2>

@@ -22,10 +22,28 @@ document.addEventListener('DOMContentLoaded', () => {
   let selectedTime = '';
   let selectedDate = '';
   let viewMonth = new Date(new Date().getFullYear(), new Date().getMonth(), 1);
+  let blockedWholeDays = [];
   const todayKey = todayStr();
 
   function setCalLoading(isLoading) {
     if (calLoader) calLoader.style.display = isLoading ? 'flex' : 'none';
+  }
+
+  async function loadBlockedDaysForMonth() {
+    const monthStart = `${viewMonth.getFullYear()}-${String(viewMonth.getMonth() + 1).padStart(2, '0')}-01`;
+    const monthEndDate = new Date(viewMonth.getFullYear(), viewMonth.getMonth() + 1, 0);
+    const monthEnd = monthEndDate.toISOString().slice(0, 10);
+    try {
+      const { data, error } = await supabase
+        .from('unavailable_slots')
+        .select('blocked_date')
+        .is('blocked_time', null)
+        .gte('blocked_date', monthStart)
+        .lte('blocked_date', monthEnd);
+      blockedWholeDays = error ? [] : (data || []).map((r) => r.blocked_date);
+    } catch {
+      blockedWholeDays = [];
+    }
   }
 
   function renderCalendar() {
@@ -44,6 +62,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const dateObj = new Date(viewMonth.getFullYear(), viewMonth.getMonth(), d);
       const key = dateObj.toISOString().slice(0, 10);
       const isPast = key < todayKey;
+      const isBlocked = blockedWholeDays.includes(key);
 
       const btn = document.createElement('button');
       btn.type = 'button';
@@ -51,9 +70,10 @@ document.addEventListener('DOMContentLoaded', () => {
       btn.textContent = String(d);
       if (key === todayKey) btn.classList.add('today');
       if (key === selectedDate) btn.classList.add('selected');
-      if (isPast) {
+      if (isPast || isBlocked) {
         btn.disabled = true;
         btn.classList.add('disabled');
+        if (isBlocked) btn.title = 'Not available';
       } else {
         btn.addEventListener('click', () => selectDate(key));
       }
@@ -98,36 +118,54 @@ document.addEventListener('DOMContentLoaded', () => {
     slotGrid.innerHTML = '';
 
     let taken = [];
+    let wholeDayBlocked = false;
     try {
       const { data, error } = await supabase
-        .from('approved_slots')
-        .select('requested_time')
-        .eq('requested_date', date);
-      if (!error) taken = (data || []).map((r) => r.requested_time);
+        .from('unavailable_slots')
+        .select('blocked_time')
+        .eq('blocked_date', date);
+      if (!error) {
+        const rows = data || [];
+        wholeDayBlocked = rows.some((r) => r.blocked_time === null);
+        taken = rows.map((r) => r.blocked_time).filter(Boolean);
+      }
     } catch {
       // network/config issue — fall back to showing all slots as open
     }
 
-    slotStatus.textContent = '';
     setCalLoading(false);
+
+    if (wholeDayBlocked) {
+      slotStatus.textContent = "Sorry, this date isn't available. Please pick another day.";
+      slotGrid.innerHTML = '';
+      return;
+    }
+
+    slotStatus.textContent = '';
     renderSlots(taken);
   }
 
-  calPrevBtn.addEventListener('click', () => {
+  calPrevBtn.addEventListener('click', async () => {
     viewMonth = new Date(viewMonth.getFullYear(), viewMonth.getMonth() - 1, 1);
+    setCalLoading(true);
+    await loadBlockedDaysForMonth();
     renderCalendar();
+    setCalLoading(false);
   });
-  calNextBtn.addEventListener('click', () => {
+  calNextBtn.addEventListener('click', async () => {
     viewMonth = new Date(viewMonth.getFullYear(), viewMonth.getMonth() + 1, 1);
+    setCalLoading(true);
+    await loadBlockedDaysForMonth();
     renderCalendar();
+    setCalLoading(false);
   });
 
   // Brief loading state while the calendar widget itself initialises
   setCalLoading(true);
-  setTimeout(() => {
+  loadBlockedDaysForMonth().finally(() => {
     renderCalendar();
     setCalLoading(false);
-  }, 350);
+  });
 
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
