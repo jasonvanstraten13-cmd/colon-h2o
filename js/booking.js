@@ -171,6 +171,9 @@ document.addEventListener('DOMContentLoaded', () => {
     e.preventDefault();
     if (!dateInput.value || !selectedTime) return;
 
+    // Honeypot: bots tend to fill every field, real users never see this one
+    if (form.website && form.website.value) return;
+
     submitBtn.disabled = true;
     submitBtn.textContent = 'Sending…';
     errorBox.style.display = 'none';

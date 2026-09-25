@@ -20,6 +20,14 @@
     .cal-headcell { font-family: 'Poppins', sans-serif; font-weight: 700; font-size: 0.75rem; text-align: center; color: var(--gray-dark); padding: 4px 0; }
     .cal-cell { min-height: 74px; border: 1px solid rgba(1,187,214,0.12); border-radius: 8px; padding: 6px; background: var(--white); font-size: 0.8rem; }
     .cal-chip { background: var(--primary); color: var(--white); font-size: 0.7rem; border-radius: 6px; padding: 2px 4px; margin-top: 4px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .filter-btn.active { background: var(--primary); border-color: var(--primary); color: var(--white); }
+    .reschedule-row { display: flex; gap: 0.6rem; flex-wrap: wrap; margin-top: 0.6rem; }
+    .reschedule-row input, .reschedule-row select { width: auto; padding: 0.5rem 0.7rem; }
+    .admin-note-input { width: 100%; margin-top: 0.6rem; padding: 0.6rem 0.8rem; border: 2px solid rgba(167,169,172,0.3); border-radius: var(--radius); font-size: 0.85rem; }
+    .status-tag { display: inline-block; font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.03em; padding: 2px 8px; border-radius: 999px; margin-left: 0.5rem; }
+    .status-tag.pending { background: #fff3cd; color: #8a6d00; }
+    .status-tag.approved { background: #d4edda; color: #1e6b32; }
+    .status-tag.denied { background: #fdecea; color: #c0392b; }
   </style>
 </head>
 <body>
@@ -66,6 +74,21 @@
 
         <p id="admin-error" style="display:none;color:#c0392b;font-size:0.85rem;"></p>
 
+        <div class="admin-card" id="stats-bar" style="display:flex;flex-wrap:wrap;gap:2rem;justify-content:center;text-align:center;">
+          <div>
+            <strong id="stat-pending" style="display:block;font-family:'Poppins',sans-serif;font-size:1.6rem;font-weight:800;color:var(--primary-dark);">0</strong>
+            <span style="font-size:0.78rem;color:var(--gray-dark);text-transform:uppercase;letter-spacing:0.04em;">Pending</span>
+          </div>
+          <div>
+            <strong id="stat-week" style="display:block;font-family:'Poppins',sans-serif;font-size:1.6rem;font-weight:800;color:var(--primary-dark);">0</strong>
+            <span style="font-size:0.78rem;color:var(--gray-dark);text-transform:uppercase;letter-spacing:0.04em;">Confirmed This Week</span>
+          </div>
+          <div>
+            <strong id="stat-upcoming" style="display:block;font-family:'Poppins',sans-serif;font-size:1.6rem;font-weight:800;color:var(--primary-dark);">0</strong>
+            <span style="font-size:0.78rem;color:var(--gray-dark);text-transform:uppercase;letter-spacing:0.04em;">Total Upcoming</span>
+          </div>
+        </div>
+
         <div class="admin-card">
           <div style="display:flex;justify-content:space-between;align-items:center;">
             <button id="cal-prev" class="btn" style="background:transparent;border:2px solid rgba(1,187,214,0.3);color:var(--text-dark);">&larr;</button>
@@ -87,6 +110,21 @@
         </div>
 
         <div class="admin-card">
+          <h2>All Bookings</h2>
+          <div style="display:flex;flex-wrap:wrap;gap:0.6rem;margin-bottom:1rem;">
+            <div class="filter-btns" style="display:flex;gap:0.4rem;">
+              <button class="btn filter-btn active" data-filter="all" style="padding:0.5rem 0.9rem;font-size:0.8rem;">All</button>
+              <button class="btn filter-btn" data-filter="pending" style="padding:0.5rem 0.9rem;font-size:0.8rem;background:transparent;border:2px solid rgba(1,187,214,0.3);color:var(--text-dark);">Pending</button>
+              <button class="btn filter-btn" data-filter="approved" style="padding:0.5rem 0.9rem;font-size:0.8rem;background:transparent;border:2px solid rgba(1,187,214,0.3);color:var(--text-dark);">Approved</button>
+              <button class="btn filter-btn" data-filter="denied" style="padding:0.5rem 0.9rem;font-size:0.8rem;background:transparent;border:2px solid rgba(1,187,214,0.3);color:var(--text-dark);">Denied</button>
+            </div>
+            <input type="text" id="history-search" placeholder="Search name, email or phone…" style="flex:1;min-width:200px;padding:0.6rem 0.9rem;border:2px solid rgba(167,169,172,0.3);border-radius:var(--radius);" />
+          </div>
+          <div id="history-list"></div>
+          <p id="history-empty" style="display:none;color:var(--gray-dark);">No bookings match.</p>
+        </div>
+
+        <div class="admin-card">
           <h2>Block Dates</h2>
           <p style="font-size:0.85rem;color:var(--gray-dark);margin-bottom:1rem;">Block off a whole day, or just one hourly slot, so clients can't request it.</p>
           <div class="form-group">
@@ -102,6 +140,10 @@
           <div class="form-group">
             <label for="block-reason">Reason (optional, for your own reference)</label>
             <input type="text" id="block-reason" placeholder="e.g. Public holiday" />
+          </div>
+          <div class="form-group" style="display:flex;align-items:center;gap:0.5rem;">
+            <input type="checkbox" id="block-repeat" style="width:auto;" />
+            <label for="block-repeat" style="margin:0;">Repeat weekly for the next 6 months (e.g. always closed Sundays)</label>
           </div>
           <p id="block-error" style="display:none;color:#c0392b;font-size:0.85rem;margin-bottom:1rem;"></p>
           <button id="block-submit" class="btn btn-primary">Block</button>

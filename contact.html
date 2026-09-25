@@ -106,6 +106,9 @@
         <div id="booking-success" style="display:none;padding:1.5rem;border-radius:var(--radius-lg);background:var(--primary-light);color:var(--text-dark);font-weight:500;"></div>
 
         <form id="booking-form" novalidate style="max-width:640px;">
+          <!-- Honeypot anti-spam: real users never see/fill this field -->
+          <input type="text" id="booking-website" name="website" style="position:absolute;left:-9999px;" tabindex="-1" autocomplete="off" />
+
           <div class="form-group">
             <label>Preferred Date <span aria-hidden="true" style="color:var(--primary)">*</span></label>
             <div class="booking-calendar">
