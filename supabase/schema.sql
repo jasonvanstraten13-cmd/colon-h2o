@@ -59,5 +59,14 @@ create policy "admins can update bookings"
 
 -- No public delete/select policy exists, so anonymous users can only insert, never read or change bookings.
 
+-- Minimal public view so the booking page can grey out already-approved hourly slots
+-- without exposing client names/emails/phone numbers to anonymous visitors.
+create or replace view public.approved_slots as
+  select requested_date, requested_time
+  from public.bookings
+  where status = 'approved';
+
+grant select on public.approved_slots to anon, authenticated;
+
 -- After creating this table, create your one admin user in
 -- Supabase Dashboard → Authentication → Users → Add user (email + password).

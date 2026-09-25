@@ -57,6 +57,19 @@ export default function AdminDashboard() {
   const decide = async (booking, decision) => {
     setBusyId(booking.id)
     setActionError('')
+
+    if (decision === 'approved') {
+      const conflict = bookings.find(
+        (b) => b.id !== booking.id && b.status === 'approved' &&
+          b.requested_date === booking.requested_date && b.requested_time === booking.requested_time
+      )
+      if (conflict) {
+        setActionError('That slot is already booked by another approved client.')
+        setBusyId(null)
+        return
+      }
+    }
+
     const { error } = await supabase
       .from('bookings')
       .update({ status: decision })
